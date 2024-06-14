@@ -1,6 +1,14 @@
 import { FC } from "react";
+import { useOutletContext } from "react-router-dom";
+import { OutletContext } from "../components/Layout";
 
 const Buy: FC = () => {
+  const { signer, mintContract } = useOutletContext<OutletContext>();
+
+  const onClickMint = () => {
+    console.log(signer, mintContract);
+  };
+
   return (
     <div className="flex-grow w-full">
       <div className="container-style bg-blue-300 p-6">
@@ -12,7 +20,7 @@ const Buy: FC = () => {
         </ul>
 
         {/* should be randomly distributed when the button below is clicked */}
-        <button>Buy Ticket for 0.001 Eth</button>
+        <button onClick={onClickMint}>Buy Ticket for 0.001 Eth</button>
       </div>
     </div>
   );

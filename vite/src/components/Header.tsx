@@ -1,5 +1,15 @@
-import { FC, useState } from "react";
+import { ethers } from "ethers";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { JsonRpcSigner, Contract } from "ethers";
 import { NavLink, Link, useNavigate } from "react-router-dom";
+import { useMetamask } from "../lib";
+
+import mintAbi from "../lib/mintAbi.json";
+import saleAbi from "../lib/saleAbi.json";
+import {
+  mintContractAddress,
+  saleContractAddress,
+} from "../lib/contractAddress";
 
 const pages = [
   { name: "About", path: "/" },
@@ -8,14 +18,45 @@ const pages = [
   { name: "My Page", path: "/mypage" },
 ];
 
-const Header: FC = () => {
+interface HeaderProps {
+  signer: JsonRpcSigner | null;
+  setSigner: Dispatch<SetStateAction<JsonRpcSigner | null>>;
+  setMintContract: Dispatch<SetStateAction<Contract | null>>;
+  setSaleContract: Dispatch<SetStateAction<Contract | null>>;
+}
+
+const Header: FC<HeaderProps> = ({
+  signer,
+  setSigner,
+  setMintContract,
+  setSaleContract,
+}) => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const onClickLogin = async () => {
+    try {
+      if (!window.ethereum) return;
+
+      const provider = new ethers.BrowserProvider(window.ethereum);
+
+      setSigner(await provider.getSigner());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    if (!signer) return;
+
+    setMintContract(new Contract(mintContractAddress, mintAbi, signer));
+    setSaleContract(new Contract(saleContractAddress, saleAbi, signer));
+  }, [signer]);
 
   return (
     <div className="w-full border-solid border-b-[0.5px] border-primary/[0.5]">
@@ -42,7 +83,12 @@ const Header: FC = () => {
           </ul>
         </nav>
         <div className="w-40">
-          <button className="hidden rounded-full min-w-[150px] p-[12px] border border-[#4f4c37] shadow-lg md:flex justify-center hover:font-semibold hover:border-2">
+          <button
+            onClick={() => {
+              useMetamask(setSigner);
+            }}
+            className="hidden rounded-full min-w-[150px] p-[12px] border border-[#4f4c37] shadow-lg md:flex justify-center hover:font-semibold hover:border-2"
+          >
             Connect Wallet
           </button>
         </div>
@@ -98,7 +144,14 @@ const Header: FC = () => {
                     </button>
                   </li>
                 ))}
-                <li className="hover:font-bold my-2">🦊 Sign In</li>
+                <li
+                  onClick={() => {
+                    useMetamask(setSigner);
+                  }}
+                  className="hover:font-bold my-2"
+                >
+                  🦊 Sign In
+                </li>
               </ul>
             </div>
           ) : (
