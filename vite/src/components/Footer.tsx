@@ -2,14 +2,14 @@ import { FC } from "react";
 
 const Footer: FC = () => {
   return (
-    <footer className="pt-[70px] min-h-[370px] border-solid border-t-[0.5px] border-[#4f4c37]/[0.5]">
+    <footer className="pt-[70px] min-h-[370px] border-solid border-t-[0.5px] border-primary/[0.5]">
       <div className="container-style px-10 h-full flex flex-col text-center md:flex-row md:justify-between md:text-left">
         <div className="flex flex-wrap gap-x-24 max-w-[800px] mx-auto md:mx-0">
-          <div className="flex flex-col mb-6">
-            <span>Report</span>
-            <span>Contact Us</span>
-            <span>Terms of Service</span>
-            <span>Privacy</span>
+          <div className="flex flex-col gap-4">
+            <span className="hover:font-semibold">Report</span>
+            <span className="hover:font-semibold">Contact Us</span>
+            <span className="hover:font-semibold">Terms of Service</span>
+            <span className="hover:font-semibold">Privacy</span>
           </div>
         </div>
         <div>

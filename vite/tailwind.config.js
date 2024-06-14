@@ -4,9 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#FFC6B8",
-        secondary: "#FFF4EB",
-        third: "#E7E7E7",
+        primary: "#4f4c37",
+        secondary: "",
       },
       fontFamily: {
         poppins: ["Poppins"],
