@@ -1,7 +1,6 @@
-import { ethers } from "ethers";
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { JsonRpcSigner, Contract } from "ethers";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useMetamask } from "../lib";
 
 import mintAbi from "../lib/mintAbi.json";
@@ -35,18 +34,6 @@ const Header: FC<HeaderProps> = ({
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const onClickLogin = async () => {
-    try {
-      if (!window.ethereum) return;
-
-      const provider = new ethers.BrowserProvider(window.ethereum);
-
-      setSigner(await provider.getSigner());
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -61,10 +48,15 @@ const Header: FC<HeaderProps> = ({
   return (
     <div className="w-full border-solid border-b-[0.5px] border-primary/[0.5]">
       <div className="container-style h-20 flex justify-between items-center p-6 ">
-        <div>
-          <image className="min-w-[150px]">
-            <Link to="/">Logo</Link>
-          </image>
+        <div className="flex items-center">
+          <img
+            className="w-10 h-10"
+            src="/images/Logo.png"
+            onClick={() => {
+              navigate("/");
+            }}
+          />
+          <h1 className="font-bold ml-4 text-xl">Leo Concert</h1>
         </div>
         <nav>
           <ul className="hidden md:flex gap-10 ">

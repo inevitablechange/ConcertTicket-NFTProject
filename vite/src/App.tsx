@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Buy from "./pages/Buy";
 import Trade from "./pages/Trade";
 import MyPage from "./pages/MyPage";
+import NotFound from "./pages/NotFound";
 
 const App: FC = () => {
   return (
@@ -16,6 +17,7 @@ const App: FC = () => {
           <Route path="/trade" element={<Trade />} />
           <Route path="/mypage" element={<MyPage />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

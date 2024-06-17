@@ -12,15 +12,27 @@ const Buy: FC = () => {
   return (
     <div className="flex-grow w-full">
       <div className="container-style bg-blue-300 p-6">
-        <ul>
-          <li>Tickets Total : 400 </li>
-          <li>Price: 0.001 eth per ticket</li>
-          <li>One can buy upto maximum of 4 tickets.</li>
-          <li># of tickets left : 400 - minted number</li>
-        </ul>
-
-        {/* should be randomly distributed when the button below is clicked */}
-        <button onClick={onClickMint}>Buy Ticket for 0.001 Eth</button>
+        <div className="flex flex-col md:flex-row justify-center items-center">
+          <div className="flex justify-center items-center text-center mb-20 md:w-[400px] md:h-[400px] md:mb-0">
+            <ul>
+              <li className="mb-4">Tickets Total : 100 </li>
+              <li className="mb-4">Price: 0.001 eth per ticket</li>
+              <li className="mb-4">
+                One can buy upto maximum of only one ticket.
+              </li>
+              <li className="mb-4"># of tickets left : 100 - minted number</li>
+              <li className="border-2 border-gray-400 font-medium rounded-full px-5 py-2.5 text-center inline-flex items-center">
+                2024/06/17 ~ 2024/06/30
+              </li>
+            </ul>
+          </div>
+          <div className="flex justify-center items-center md:w-[400px] md:h-[400px]">
+            <img src="" />
+            <button onClick={onClickMint} className="bg-green-500">
+              Buy Ticket for 0.001 Eth
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
