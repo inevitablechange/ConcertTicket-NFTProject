@@ -6,6 +6,7 @@ import { Contract, JsonRpcSigner } from "ethers";
 
 export interface OutletContext {
   signer: JsonRpcSigner | null;
+  setSigner: React.Dispatch<React.SetStateAction<JsonRpcSigner | null>>;
   mintContract: Contract | null;
   saleContract: Contract | null;
 }
@@ -23,7 +24,7 @@ const Layout: FC = () => {
         setMintContract={setMintContract}
         setSaleContract={setSaleContract}
       />
-      <Outlet context={{ signer, mintContract, saleContract }} />
+      <Outlet context={{ signer, setSigner, mintContract, saleContract }} />
       <Footer />
     </div>
   );

@@ -32,10 +32,15 @@ const Header: FC<HeaderProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
+  const [isLogoutOpen, setIsLogoutOpen] = useState<boolean>(false);
+
+  const onClickLogout = () => {
+    setSigner(null);
+  };
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsNavOpen(!isNavOpen);
   };
 
   useEffect(() => {
@@ -74,22 +79,48 @@ const Header: FC<HeaderProps> = ({
             ))}
           </ul>
         </nav>
-        <div className="w-40">
-          <button
-            onClick={() => {
-              useMetamask(setSigner);
-            }}
-            className="hidden rounded-full min-w-[150px] p-[12px] border border-[#4f4c37] shadow-lg md:flex justify-center hover:font-semibold hover:border-2"
-          >
-            Connect Wallet
-          </button>
+        <div className="w-40 relative">
+          {signer ? (
+            <button
+              onClick={() => setIsLogoutOpen(!isLogoutOpen)}
+              className="hidden rounded-full min-w-[150px] p-[12px] border border-[#4f4c37] shadow-lg md:flex justify-center hover:font-semibold hover:border-2"
+            >
+              {signer.address.substring(0, 5)}...
+              {signer.address.substring(signer.address.length - 5)}
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                useMetamask(setSigner);
+              }}
+              className="hidden rounded-full min-w-[150px] p-[12px] border border-[#4f4c37] shadow-lg md:flex justify-center hover:font-semibold hover:border-2"
+            >
+              Connect Wallet
+            </button>
+          )}
+          {isLogoutOpen && (
+            <div className="absolute top-[52px] left-[5px] z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-[140px] text-center">
+              <ul className="py-4 text-sm text-gray-700">
+                <li className="hover:font-bold my-2">
+                  <button
+                    onClick={() => {
+                      onClickLogout();
+                      setIsLogoutOpen(false);
+                    }}
+                  >
+                    Log Out
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
         <div className="relative md:hidden">
           <button
             onClick={toggleMenu}
             className="border-2 border-gray-400 hover:border-gray-600 font-medium rounded-full px-5 py-2.5 text-center inline-flex items-center"
           >
-            {isOpen ? (
+            {isNavOpen ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -121,7 +152,7 @@ const Header: FC<HeaderProps> = ({
               </svg>
             )}
           </button>
-          {isOpen ? (
+          {isNavOpen ? (
             <div className="absolute top-[52px] -left-[14px] z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-24 text-center">
               <ul className="py-4 text-sm text-gray-700">
                 {pages.map((v, i) => (
@@ -129,21 +160,34 @@ const Header: FC<HeaderProps> = ({
                     <button
                       onClick={() => {
                         navigate(v.path);
-                        setIsOpen(false);
+                        setIsNavOpen(false);
                       }}
                     >
                       {v.name}
                     </button>
                   </li>
                 ))}
-                <li
-                  onClick={() => {
-                    useMetamask(setSigner);
-                  }}
-                  className="hover:font-bold my-2"
-                >
-                  🦊 Sign In
-                </li>
+                {signer ? (
+                  <li
+                    onClick={() => {
+                      onClickLogout();
+                      setIsNavOpen(false);
+                    }}
+                    className="hover:font-bold my-2"
+                  >
+                    🦊 LogOut
+                  </li>
+                ) : (
+                  <li
+                    onClick={() => {
+                      useMetamask(setSigner);
+                      setIsNavOpen(false);
+                    }}
+                    className="hover:font-bold my-2"
+                  >
+                    🦊 Sign In
+                  </li>
+                )}
               </ul>
             </div>
           ) : (

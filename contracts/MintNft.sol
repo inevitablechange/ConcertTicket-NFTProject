@@ -12,7 +12,7 @@ contract MintNft is ERC721Enumerable, Ownable {
     uint256 private ticketCounter;
     string private baseURI;
     mapping(uint256 => bool) private assignedTickets;
-    mapping(address => bool) private hasMinted; 
+
 
     constructor(string memory _name, string memory _symbol, string memory _baseURI) ERC721(_name, _symbol) Ownable(msg.sender) {
         baseURI = _baseURI;
@@ -21,12 +21,12 @@ contract MintNft is ERC721Enumerable, Ownable {
     function mintTicket() public payable {
         require(msg.value == TICKET_PRICE, "Incorrect amount of ETH sent");
         require(ticketCounter < MAX_TICKETS, "Sold Out");
-        require(!hasMinted[msg.sender], "You have already bought a ticket"); 
+        require(balanceOf(msg.sender) < 5, "You cannot buy more tickets"); 
 
         uint256 ticketId = _getRandomTicketId();
         assignedTickets[ticketId] = true;
         ticketCounter++;
-        hasMinted[msg.sender] = true;
+
         
         _safeMint(msg.sender, ticketId);
     }
