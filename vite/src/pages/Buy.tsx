@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { OutletContext } from "../components/Layout";
 import { useMetamask } from "../lib";
@@ -9,9 +9,16 @@ const MINT_PRICE = 1000000000000000;
 
 const Buy: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [totalSupply, setTotalSupply] = useState<number>(0);
 
   const { signer, setSigner, mintContract } = useOutletContext<OutletContext>();
+
+  const getTotalSupply = async () => {
+    const response = await mintContract?.totalSupply();
+
+    setTotalSupply(Number(response));
+  };
 
   const onClickMint = async () => {
     try {
@@ -22,7 +29,6 @@ const Buy: FC = () => {
 
       await response.wait();
 
-      console.log(signer, mintContract);
       setIsLoading(false);
       setIsModalOpen(true);
     } catch (error) {
@@ -30,6 +36,12 @@ const Buy: FC = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!signer || !mintContract) return;
+
+    getTotalSupply();
+  }, [signer, mintContract]);
 
   return (
     <>
@@ -43,10 +55,10 @@ const Buy: FC = () => {
                     <li className="mb-4">Tickets Total : 100 </li>
                     <li className="mb-4">Price: 0.001 eth per ticket</li>
                     <li className="mb-4">
-                      One can buy upto maximum of only one ticket.
+                      One can buy upto maximum of 4 tickets.
                     </li>
                     <li className="mb-4">
-                      # of tickets left : 100 - minted number
+                      # of tickets left : {100 - totalSupply}
                     </li>
                     <li className="">2024/06/17 ~ 2024/06/30</li>
                   </ul>
