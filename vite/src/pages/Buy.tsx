@@ -85,7 +85,7 @@ const Buy: FC = () => {
                 </div>
               </>
             ) : (
-              <div className="h-[300px] w-[300px] flex items-center justify-center">
+              <div className="h-[300px] w-full flex items-center justify-center">
                 <button
                   onClick={() => useMetamask(setSigner)}
                   className="border-2 border-gray-400 font-medium rounded-full px-5 py-2.5 text-center inline-flex items-center hover:border-gray-600 hover:font-bold"

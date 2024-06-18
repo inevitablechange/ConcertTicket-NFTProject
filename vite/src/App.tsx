@@ -6,6 +6,7 @@ import Buy from "./pages/Buy";
 import Trade from "./pages/Trade";
 import MyPage from "./pages/MyPage";
 import NotFound from "./pages/NotFound";
+import Sell from "./pages/Sell";
 
 const App: FC = () => {
   return (
@@ -16,6 +17,7 @@ const App: FC = () => {
           <Route path="/buy" element={<Buy />} />
           <Route path="/trade" element={<Trade />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/sell/:id" element={<Sell />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
