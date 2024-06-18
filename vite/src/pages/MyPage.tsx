@@ -1,26 +1,36 @@
 import { FC, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import axios from "axios";
+
 import { OutletContext } from "../components/Layout";
 import { useMetamask } from "../lib";
-import axios from "axios";
+import MyNftCard from "../components/MyNftCard";
 
 const MyPage: FC = () => {
   const [myTickets, setMyTickets] = useState<Array<number>>([]);
   const [nftMetadataArray, setNftMetadataArray] = useState<NftMetadata[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { signer, setSigner, mintContract } = useOutletContext<OutletContext>();
 
   const getMyTickets = async () => {
     try {
+      setIsLoading(true);
       const response = await mintContract?.myTickets();
       const temp = response.map((v: bigint) => Number(v));
 
       setMyTickets(temp);
-    } catch (error) {}
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
   };
 
   const getNftMetadata = async () => {
     try {
+      setIsLoading(true);
+
       const temp: NftMetadata[] = [];
 
       for (let i = 0; i < myTickets.length; i++) {
@@ -31,8 +41,11 @@ const MyPage: FC = () => {
       }
 
       setNftMetadataArray(temp);
-      console.log(temp);
-    } catch (error) {}
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -52,12 +65,7 @@ const MyPage: FC = () => {
       {signer ? (
         <ul className="container-style px-40 py-20 grid grid-cols-1 md:grid-cols-2 gap-20">
           {nftMetadataArray.map((v, i) => (
-            <li key={i} className="flex flex-col max-w-2/3 md:max-w-1/3">
-              <img className="w-full" src={v.image} alt={v.name} />
-              <div className="grow pl-3">
-                <p className="text-center font-bold">{v.name}</p>
-              </div>
-            </li>
+            <MyNftCard key={i} nftMetadata={v} />
           ))}
         </ul>
       ) : (
