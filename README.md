@@ -1,110 +1,42 @@
-## ERC 721 프로젝트
+# 귀여운 사자 가상 콘서트
 
-- res(이미지)
+귀여운 사자 가상 콘서트의 공식 저장소에 오신 것을 환영합니다! 이 프로젝트는 우리만의 특별한 가상 이벤트를 위한 웹사이트를 포함하고 있으며, 콘서트 티켓은 NFT로 판매됩니다.
 
-  1. layers 준비
-  2. 이미지 빌드
+## 콘서트 소개
 
-  ```
-  npm run build
-  ```
+귀여운 사자가 주최하는 특별한 온라인 이벤트, 귀여운 사자 가상 콘서트에 오신 것을 환영합니다. 이 콘서트는 다양한 재미있는 이벤트와 공연을 제공하며, 집에서 편안하게 즐기실 수 있습니다.
 
-  3. 이미지 업로드 (피나타)
-  4. 메타데이터 업데이트
+## NFT 티켓
 
-  ```
-  npm run update:metadata
-  ```
+### 티켓 정보
 
-  5. 메타데이터 업로드 (피나타)
+- 각 티켓은 NFT(Non-Fungible Token) 형식으로, 가격은 0.001 ETH입니다.
+- 총 100장의 티켓이 준비되어 있으며, 모든 티켓의 가격은 동일합니다.
+- 계정 당 최대 4개의 NFT 티켓을 구매할 수 있습니다.
 
-- contracts
+### 티켓 보상
 
-  1. MintNFT - Ownable 쓸지, 말지
-     Reveal 쓸지, 말지
-  2. SaleNFT - 그대로 사용
-  3. 리믹스 연결
+각 NFT 티켓에는 별의 개수가 포함되어 있으며, 별의 개수에 따라 다양한 보상이 주어집니다:
 
-  ```
-  cd contracts
-  ```
+- **별 0개**: 꽝
+- **별 1개**: 캐릭터 스티커
+- **별 2개**: 캐릭터 엽서
+- **별 3개**: 캐릭터 열쇠고리
+- **별 4개**: 캐릭터 인형
 
-  ```
-  remixd -s . --remix-ide https://remix.ethereum.org
-  ```
+## 참여 방법
 
-  4. Connect to localhost
-  5. MintNFT, SaleNFT 오픈
-  6. 컴파일 확인
-  7. 배포 - Injected Provider - Metamask (세폴리아 확인, 세폴이더 없으면 faucet)
-  8. Mint NFT 선택
-  9. name, symbol, metadatauri, unrevealeduri 입력
-  10. deploy (transact)
-  11. Deployed Contracts 확인
-  12. 배포된 MintNFT 주소 확인
-  13. SaleNFT 배포 - MintNFT 주소 입력
+1. 공식 플랫폼에서 NFT 티켓을 구매하세요.
+2. NFT 티켓에 포함된 별의 개수를 확인하여 당첨된 보상을 확인하세요.
+3. 콘서트와 보상을 즐기세요!
 
-  - Mint, Sale 컨트랙트의 주소 및 ABI 확보
+## 웹사이트
 
-- vite
+콘서트 웹사이트를 방문하여 이벤트에 대해 더 알아보고, 티켓을 구매하고, 티켓을 거래하세요.
 
-  1. Vite 설치
+### 웹사이트 구조
 
-  ```
-  npm create vite@latest vite -- --template react-ts
-  ```
-
-  2. Tailwind CSS 설치
-
-  ```
-  npm install -D tailwindcss postcss autoprefixer
-  npx tailwindcss init -p
-  ```
-
-  3. Tailwind CSS 셋팅 (main.tsx), 불필요한 파일 삭제
-  4. React-Router-Dom 설치
-
-  ```
-  npm i react-router-dom
-  ```
-
-  5. React-Router-Dom 셋팅 & 레이아웃 셋팅 (App.tsx, Layout.tsx, Header.tsx, Home.tsx)
-  6. ethers 설치
-
-  ```
-  npm i ethers
-  ```
-
-  7. 지갑 로그인 구현 - (Layout.tsx, Header.tsx)
-  8. 컨트랙트 연결 (Puzzle NFT 참고, Layout.tsx, lib폴더)
-  9. Home 꾸미기 (아름답게)
-  10. Outlet Context 셋팅 (Laout.tsx, 각 페이지.tsx)
-  11. Mint NFT 페이지
-
-  - 페이지 구성
-  - NFT 메타데이터 타입 구현 (index.d.ts)
-  - onClickMint
-  - Mint 완료시 모달
-
-  12. MyNft 페이지
-
-  - 페이지 구성 (로그인 안되었을 때 메타마스크 로그인 메세지 signer로 체크)
-  - 내 NFT 보유량 확인 (getBalanceOf)
-  - 메타데이터 가져오기 (getNftMetadata) & NFT 리스팅 (Grid, NftCard.tsx)
-  - NFT 카드 생성
-  - NFT 가격 조회 (getTokenPrice)
-  - 판매 권한 확인 (getIsApprovedForAll)
-  - 판매 권한 부여 (onClickSetApprovalForAll)
-  - NFT 판매 등록 (NftCard.tsx, onClickSetForSaleNft)
-
-  13. SaleNft 페이지
-
-  - 페이지 구성
-  - NFT 리스팅 (getOnSaleTokens, 판매중인 NFT 카드 조회, MyNft 페이지 리스팅이랑 비슷함)
-  - Sale NFT 카드 생성
-  - Sale NFT 카드에 쓰일 메타데이터 타입 구현 (index.d.ts)
-  - Sale NFT 가격 조회 (getNftMetadata, getTokenPrice로 가격까지 조회)
-  - NFT 구매 기능 (SaleNftCard.tsx, onClickPurchaseNft)
-
-  - 버튼 로딩, 주인인 경우 구매 버튼 비활성화 (안 만들어도 기능이 동작함)
-  - 버튼 로딩은 onClick에 붙이면됨
+- **ABOUT**: 귀여운 사자 가상 콘서트 소개, NFT 티켓에 대한 정보, NFT 티켓에 포함된 별의 개수에 따른 보상 정보
+- **BUY**: NFT 티켓에 대한 상세 정보 제공 및 구매
+- **TRADE**: NFT 티켓 2차 거래가 가능한 마켓플레이스
+- **My Page**: 나의 NFT를 확인할 수 있는 마이페이지
