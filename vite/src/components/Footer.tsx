@@ -14,10 +14,10 @@ const Footer: FC = () => {
         </div>
         <div>
           <nav className="flex gap-6 mb-8 justify-center md:justify-end">
-            <img src="/images/discord.png" alt="discord" />
-            <img src="/images/instagram.png" alt="instagram" />
-            <img src="/images/twitter.png" alt="twitter" />
-            <img src="/images/youtube.png" alt="youtube" />
+            <img src="/images/social/discord.png" alt="discord" />
+            <img src="/images/social/instagram.png" alt="instagram" />
+            <img src="/images/social/twitter.png" alt="twitter" />
+            <img src="/images/social/youtube.png" alt="youtube" />
           </nav>
           <div>
             <div>Copyright © 2024 PARTY ENT. All rights reserved.</div>

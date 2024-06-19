@@ -1,6 +1,9 @@
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home: FC = () => {
+  const navigate = useNavigate();
+
   return (
     <main className="flex-grow w-full">
       <div className="container-style">
@@ -41,6 +44,9 @@ const Home: FC = () => {
           <button
             className="md:font-medium px-2 md:px-5 py-1 text-center inline-flex items-center 
             border-2 border-gray-400 rounded-full hover:border-gray-600 hover:font-bold"
+            onClick={() => {
+              navigate("/buy");
+            }}
           >
             Click Here For More Information
           </button>
@@ -54,13 +60,41 @@ const Home: FC = () => {
             Depending on the number of stars included in the NFT ticket,
             different rewards are provided:
           </p>
-          <ul>
-            <li>0 stars: No prize</li>
-            <li>1 star: Character stickers</li>
-            <li>2 stars: Character postcards</li>
-            <li>3 stars: Character keychains</li>
-            <li>4 stars: Character plush toys</li>
-          </ul>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mt-6 gap-8">
+            <figure>
+              <img
+                src="/images/prize/1.png"
+                alt="Leo Sticker"
+                className="w-48 h-48 lg:w-56 lg:h-56 border-4 border-yellow-300 rounded-full overflow-hidden"
+              />
+              <h4 className="mt-4 text-center font-bold">1 Star - Sticker</h4>
+            </figure>
+            <figure>
+              <img
+                src="/images/prize/2.png"
+                alt="Leo Keyring"
+                className="w-48 h-48 lg:w-56 lg:h-56 border-4 border-yellow-300 rounded-full overflow-hidden"
+              />
+              <h4 className="mt-4 text-center font-bold">2 Stars - Keyring</h4>
+            </figure>
+            <figure>
+              <img
+                src="/images/prize/3.png"
+                alt="Leo Shirts"
+                className="w-48 h-48 lg:w-56 lg:h-56 border-4 border-yellow-300 rounded-full overflow-hidden"
+              />
+              <h4 className="mt-4 text-center font-bold">3 Stars - Shirts</h4>
+            </figure>
+
+            <figure>
+              <img
+                src="/images/prize/4.png"
+                alt="Leo Doll"
+                className="w-48 h-48 lg:w-56 lg:h-56 border-4 border-yellow-300 rounded-full overflow-hidden"
+              />
+              <h4 className="mt-4 text-center font-bold">4 Star - Doll</h4>
+            </figure>
+          </div>
         </section>
       </div>
     </main>
