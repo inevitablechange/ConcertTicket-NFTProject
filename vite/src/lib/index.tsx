@@ -10,6 +10,8 @@ export const useMetamask = async (
     const provider = new ethers.BrowserProvider(window.ethereum);
 
     setSigner(await provider.getSigner());
+
+    localStorage.setItem("isLogin", "true");
   } catch (error) {
     console.error(error);
   }

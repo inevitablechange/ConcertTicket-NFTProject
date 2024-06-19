@@ -37,11 +37,18 @@ const Header: FC<HeaderProps> = ({
 
   const onClickLogout = () => {
     setSigner(null);
+    localStorage.removeItem("isLogin");
   };
 
   const toggleMenu = () => {
     setIsNavOpen(!isNavOpen);
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("isLogin") === "true") {
+      useMetamask(setSigner);
+    }
+  }, []);
 
   useEffect(() => {
     if (!signer) return;
