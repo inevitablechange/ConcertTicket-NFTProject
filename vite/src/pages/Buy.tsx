@@ -63,34 +63,47 @@ const Buy: FC = () => {
     <>
       <div className="flex-grow w-full">
         <div className="container-style p-6">
-          <div className="flex flex-col md:flex-row justify-center items-center">
+          <div className="flex flex-col justify-center items-center">
             {signer ? (
               <>
-                <div className="flex justify-center items-center text-center mb-20 md:w-[400px] md:h-[400px] md:mb-0">
-                  <ul>
-                    <li className="mb-4">Tickets Total : 100 </li>
-                    <li className="mb-4">Price: 0.001 eth per ticket</li>
-                    <li className="mb-4">
-                      One can buy upto maximum of 4 tickets.
-                    </li>
-                    <li className="mb-4">
-                      # of tickets left : {100 - totalSupply}
-                    </li>
-                    <li className="mb-4">
-                      Can purchase {4 - mintCount} more tickets
-                    </li>
-                    <li className="">2024/06/17 ~ 2024/06/30</li>
-                  </ul>
-                </div>
                 <div className="flex flex-col justify-center items-center md:w-[400px] md:h-[400px]">
                   <img
                     src="/images/MosaicLeo.png"
                     alt="Random Leo"
-                    className="h-[300px] w-[300px] mb-4"
+                    className="w-[300px] md:w-[400px] mt-10 mb-4"
                   />
+                </div>
+                <div className="flex flex-col mt-10 w-[300px] md:w-[400px] md:h-[400px] md:mb-0">
+                  <h3 className="mb-4 text-2xl font-bold">
+                    LEO Concert Ticket
+                  </h3>
+                  <div className="flex justify-between mb-4">
+                    <p className="font-semibold">Price</p>
+                    <p className="font-bold">0.001 ETH</p>
+                  </div>
+                  <div className="flex justify-between mb-4">
+                    <p className="text-[12px] font-semibold">Date</p>
+                    <p className="text-[12px] font-semibold">
+                      2024.06.17 12:00 ~ 2024.06.30 12:00
+                    </p>
+                  </div>
+                  <div className="flex flex-col mb-4 text-sm">
+                    <div className="border rounded-t-lg border-gray-400 p-1 flex justify-between">
+                      <p>Blockchain</p>
+                      <p className="text-gray-600">Ethereum</p>
+                    </div>
+                    <div className="border-l border-r border-gray-400 p-1 flex justify-between">
+                      <p>Total/Released</p>
+                      <p className="text-gray-600">100 / {totalSupply}</p>
+                    </div>
+                    <div className="border rounded-b-lg border-gray-400 p-1 flex justify-between">
+                      <p>Max tickets per account / Available</p>
+                      <p className="text-gray-600">4 / {4 - mintCount}</p>
+                    </div>
+                  </div>
                   <button
                     onClick={onClickMint}
-                    className="border-2 border-gray-400 font-medium rounded-full px-5 py-2.5 text-center inline-flex items-center hover:border-gray-600 hover:font-bold"
+                    className="border-2 border-gray-400 font-medium rounded-full px-5 py-2.5 inline-flex justify-center items-center hover:border-gray-600 hover:font-bold"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -98,7 +111,7 @@ const Buy: FC = () => {
                         <SyncLoader />
                       </div>
                     ) : (
-                      "Buy Ticket for 0.001 Eth"
+                      "Click Here to Buy A Ticket"
                     )}
                   </button>
                 </div>
