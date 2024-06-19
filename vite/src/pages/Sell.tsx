@@ -5,11 +5,13 @@ import { saleContractAddress } from "../lib/contractAddress";
 import axios from "axios";
 import { parseEther } from "ethers";
 import SellModal from "../components/SellModal";
+import { SyncLoader } from "react-spinners";
 
 const Sell: FC = () => {
   const [nftMetadata, setNftMetadata] = useState<NftMetadata>();
   const [salePrice, setSalePrice] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -67,10 +69,13 @@ const Sell: FC = () => {
 
   const onClickSell = async () => {
     try {
+      setIsLoading(true);
       await setApprovalForAll();
       await setForSaleNft();
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -109,8 +114,15 @@ const Sell: FC = () => {
                     onClick={() => {
                       onClickSell();
                     }}
+                    disabled={isLoading}
                   >
-                    Sell
+                    {isLoading ? (
+                      <div className="flex justify-center items-center">
+                        <SyncLoader />
+                      </div>
+                    ) : (
+                      "Sell"
+                    )}
                   </button>
                 </div>
               </form>

@@ -1,7 +1,8 @@
 import { formatEther } from "ethers";
-import { Dispatch, FC, SetStateAction } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { OutletContext } from "./Layout";
+import { SyncLoader } from "react-spinners";
 
 interface SaleNftCardProps {
   saleNftMetadata: SaleNftMetadata;
@@ -14,10 +15,13 @@ const SaleNftCard: FC<SaleNftCardProps> = ({
   tokenId,
   setIsModalOpen,
 }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const { signer, saleContract } = useOutletContext<OutletContext>();
 
   const onClickPurchase = async () => {
     try {
+      setIsLoading(true);
       const response = await saleContract?.purchaseNft(tokenId, {
         value: saleNftMetadata?.price,
       });
@@ -25,8 +29,10 @@ const SaleNftCard: FC<SaleNftCardProps> = ({
       await response.wait();
 
       setIsModalOpen(true);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -51,19 +57,27 @@ const SaleNftCard: FC<SaleNftCardProps> = ({
             )}`}
           </p>
         </div>
-        <button
-          className={`md:font-medium px-2 md:px-5 py-1 text-center inline-flex items-center ${
-            saleNftMetadata.tokenOwner !== signer?.address
-              ? "border-2 border-gray-400 rounded-full hover:border-gray-600 hover:font-bold"
-              : ""
-          }`}
-          onClick={onClickPurchase}
-        >
-          {saleNftMetadata.tokenOwner !== signer?.address
-            ? "Buy for"
-            : "Listed for"}{" "}
-          {formatEther(saleNftMetadata.price)}ETH
-        </button>
+        {signer?.address === saleNftMetadata.tokenOwner ? (
+          <p className="md:font-medium px-2 md:px-5 py-1 text-center inline-flex items-center">
+            Listed for {formatEther(saleNftMetadata.price)}ETH
+          </p>
+        ) : (
+          <button
+            className="md:font-medium px-2 md:px-5 py-1 text-center inline-flex items-center 
+            border-2 border-gray-400 rounded-full hover:border-gray-600 hover:font-bold"
+            onClick={onClickPurchase}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <div className="flex justify-center items-center">
+                <SyncLoader />
+              </div>
+            ) : (
+              `Buy for 
+          ${formatEther(saleNftMetadata.price)}ETH`
+            )}
+          </button>
+        )}
       </div>
     </li>
   );
