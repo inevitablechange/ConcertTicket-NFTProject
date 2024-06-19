@@ -11,13 +11,28 @@ const Buy: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [totalSupply, setTotalSupply] = useState<number>(0);
+  const [mintCount, setMintCount] = useState<number>(0);
 
   const { signer, setSigner, mintContract } = useOutletContext<OutletContext>();
 
   const getTotalSupply = async () => {
-    const response = await mintContract?.totalSupply();
+    try {
+      const response = await mintContract?.totalSupply();
 
-    setTotalSupply(Number(response));
+      setTotalSupply(Number(response));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAddressMintCount = async () => {
+    try {
+      const response = await mintContract?.addressMintCount(signer?.address);
+
+      setMintCount(Number(response));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onClickMint = async () => {
@@ -41,6 +56,7 @@ const Buy: FC = () => {
     if (!signer || !mintContract) return;
 
     getTotalSupply();
+    getAddressMintCount();
   }, [signer, mintContract]);
 
   return (
@@ -59,6 +75,9 @@ const Buy: FC = () => {
                     </li>
                     <li className="mb-4">
                       # of tickets left : {100 - totalSupply}
+                    </li>
+                    <li className="mb-4">
+                      Can purchase {4 - mintCount} more tickets
                     </li>
                     <li className="">2024/06/17 ~ 2024/06/30</li>
                   </ul>

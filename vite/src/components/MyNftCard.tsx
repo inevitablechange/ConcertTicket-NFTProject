@@ -15,8 +15,12 @@ const MyNftCard: FC<MyNftCardProps> = ({ nftMetadata, tokenId }) => {
   const navigate = useNavigate();
 
   const getTokenPrice = async () => {
-    const response = await saleContract?.getTokenPrice(tokenId);
-    setTokenPrice(response);
+    try {
+      const response = await saleContract?.getTokenPrice(tokenId);
+      setTokenPrice(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
