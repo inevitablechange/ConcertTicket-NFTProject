@@ -296,6 +296,25 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "addressMintCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "to",
 						"type": "address"
 					},
@@ -962,11 +981,11 @@
 			]
 		},
 		"MintNFT.sol": {
-			"keccak256": "0x81e28360dcc63da4400495da25234319a7af3ad19126a9ba7420d7843caca09d",
+			"keccak256": "0xd9ddfcf7db1a28290ace820c8c58cf4f3b17cf5d0d9991d80ab531aa31aa0a04",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5fac37138124c631296daecc19afb2c7fbb85971b0e9e7829b5bb41f25c051b6",
-				"dweb:/ipfs/QmcFcU2RXp3JpTvrRaFjLEm9XkQghKh5BQ5dGQCAASThwL"
+				"bzz-raw://13bf97693389d7fcc364de6ca1eb3ea4c4a4b19035b7e41148ef3fa53f32f3bb",
+				"dweb:/ipfs/QmYDQCn3xzuJRSHPtaeYszR8JwhYm8AgbHU24xBjAFEP5v"
 			]
 		}
 	},
