@@ -60,14 +60,13 @@ const Header: FC<HeaderProps> = ({
   return (
     <div className="w-full border-solid border-b-[0.5px] border-primary/[0.5]">
       <div className="container-style h-20 flex justify-between items-center p-6 ">
-        <div className="flex items-center">
-          <img
-            className="w-10 h-10"
-            src="/images/Logo.png"
-            onClick={() => {
-              navigate("/");
-            }}
-          />
+        <div
+          className="flex items-center"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          <img className="w-10 h-10" src="/images/Logo.png" />
           <h1 className="font-bold ml-4 text-xl">Leo Concert</h1>
         </div>
         <nav>

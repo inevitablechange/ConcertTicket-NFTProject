@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Layout from "./components/Layout";
-import Home from "./pages/Home";
+import About from "./pages/About";
 import Buy from "./pages/Buy";
 import Trade from "./pages/Trade";
 import MyPage from "./pages/MyPage";
@@ -13,7 +14,7 @@ const App: FC = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<About />} />
           <Route path="/buy" element={<Buy />} />
           <Route path="/trade" element={<Trade />} />
           <Route path="/mypage" element={<MyPage />} />

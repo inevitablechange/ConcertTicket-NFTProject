@@ -1,7 +1,30 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Home: FC = () => {
+const prizes = [
+  {
+    name: "Leo Sticker",
+    image: "1",
+    description: "1 Star - Sticker",
+  },
+  {
+    name: "Leo Keyring",
+    image: "2",
+    description: "2 Stars - Keyring",
+  },
+  {
+    name: "Leo Shirts",
+    image: "3",
+    description: "3 Stars - Shirts",
+  },
+  {
+    name: "Leo Doll",
+    image: "4",
+    description: "4 Star - Doll",
+  },
+];
+
+const About: FC = () => {
   const navigate = useNavigate();
 
   return (
@@ -61,39 +84,16 @@ const Home: FC = () => {
             different rewards are provided:
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mt-6 gap-8">
-            <figure>
-              <img
-                src="/images/prize/1.png"
-                alt="Leo Sticker"
-                className="w-48 h-48 lg:w-56 lg:h-56 border-4 border-yellow-300 rounded-full overflow-hidden"
-              />
-              <h4 className="mt-4 text-center font-bold">1 Star - Sticker</h4>
-            </figure>
-            <figure>
-              <img
-                src="/images/prize/2.png"
-                alt="Leo Keyring"
-                className="w-48 h-48 lg:w-56 lg:h-56 border-4 border-yellow-300 rounded-full overflow-hidden"
-              />
-              <h4 className="mt-4 text-center font-bold">2 Stars - Keyring</h4>
-            </figure>
-            <figure>
-              <img
-                src="/images/prize/3.png"
-                alt="Leo Shirts"
-                className="w-48 h-48 lg:w-56 lg:h-56 border-4 border-yellow-300 rounded-full overflow-hidden"
-              />
-              <h4 className="mt-4 text-center font-bold">3 Stars - Shirts</h4>
-            </figure>
-
-            <figure>
-              <img
-                src="/images/prize/4.png"
-                alt="Leo Doll"
-                className="w-48 h-48 lg:w-56 lg:h-56 border-4 border-yellow-300 rounded-full overflow-hidden"
-              />
-              <h4 className="mt-4 text-center font-bold">4 Star - Doll</h4>
-            </figure>
+            {prizes.map((v, i) => (
+              <figure key={i}>
+                <img
+                  src={`/images/prize/${v.image}.png`}
+                  alt={v.name}
+                  className="w-48 h-48 lg:w-56 lg:h-56 border-4 border-yellow-300 rounded-full overflow-hidden"
+                />
+                <h4 className="mt-4 text-center font-bold">{v.description}</h4>
+              </figure>
+            ))}
           </div>
         </section>
       </div>
@@ -101,4 +101,4 @@ const Home: FC = () => {
   );
 };
 
-export default Home;
+export default About;
