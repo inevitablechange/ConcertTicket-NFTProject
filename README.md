@@ -41,3 +41,15 @@
 - **TRADE**: NFT 티켓 2차 거래가 가능한 마켓플레이스
 - **MY PAGE**: 나의 NFT를 확인할 수 있는 마이페이지
 - **SELL**: 나의 NFT 판매를 위한 정보 입력
+
+## 프로젝트 실행 방법
+
+이 프로젝트는 Metamask(메타마스크) 지갑을 필요로 합니다.
+실행하기 전에 'Chrome Extension'에 Metamask가 추가되어 있는지 확인해 주세요. (다운로드 링크: https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn)
+
+```bash
+git clone https://github.com/inevitablechange/ConcertTicket-NFTProject.git
+cd ConcertTicket-NFTProject/vite
+npm i
+npm run dev
+```
